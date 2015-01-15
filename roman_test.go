@@ -3,7 +3,7 @@ package main
 import "testing"
 
 func TestToRoman(t *testing.T) {
-	numerals := map[int]string {
+	numerals := map[int]string{
 		1:    "I",
 		4:    "IV",
 		5:    "V",
@@ -24,7 +24,7 @@ func TestToRoman(t *testing.T) {
 }
 
 func TestFromRoman(t *testing.T) {
-	numerals := map[int]string {
+	numerals := map[int]string{
 		1:    "I",
 		4:    "IV",
 		5:    "V",
@@ -45,7 +45,7 @@ func TestFromRoman(t *testing.T) {
 }
 
 func BenchmarkToRoman(b *testing.B) {
-	numerals := map[int]string {
+	numerals := map[int]string{
 		1:    "I",
 		4:    "IV",
 		5:    "V",
@@ -60,12 +60,12 @@ func BenchmarkToRoman(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		for number := range numerals {
 			r.ToRoman(number)
-		}	
+		}
 	}
 }
 
 func BenchmarkFromRoman(b *testing.B) {
-	numerals := map[int]string {
+	numerals := map[int]string{
 		1:    "I",
 		4:    "IV",
 		5:    "V",
@@ -80,6 +80,6 @@ func BenchmarkFromRoman(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		for _, numeral := range numerals {
 			r.FromRoman(numeral)
-		}	
+		}
 	}
 }

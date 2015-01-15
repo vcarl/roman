@@ -2,13 +2,16 @@ package main
 
 import (
 	"bytes"
+	"flag"
+	"fmt"
 	"math"
+	"strconv"
 )
 
 type Roman struct {
-	runes *[]rune
+	runes    *[]rune
 	numerals *map[rune]int
-	buf bytes.Buffer
+	buf      bytes.Buffer
 }
 
 // ToRoman accepts an int and returns a string representing the roman
@@ -36,7 +39,7 @@ func (r *Roman) ToRoman(x int) string {
 }
 
 // romanHelper is a helper function called from within ToRoman.
-func (r *Roman) romanHelper(x int, one, five, ten rune, buf *bytes.Buffer) (string) {
+func (r *Roman) romanHelper(x int, one, five, ten rune, buf *bytes.Buffer) string {
 	if x >= 10 || x <= 0 {
 		return ""
 	}
@@ -71,7 +74,7 @@ func (r *Roman) FromRoman(x string) int {
 	// TODO: validate that the passed string is a valid Roman numeral.
 
 	// If there isn't a list of numerals, initialize it.
-	if (r.numerals == nil) {
+	if r.numerals == nil {
 		r.numerals = &map[rune]int{
 			'I': 1,
 			'V': 5,
@@ -114,4 +117,21 @@ func (r *Roman) FromRoman(x string) int {
 	return total
 }
 
-func main() {}
+func main() {
+	var from = flag.Bool("from", false, "testing!")
+	var to = flag.Bool("to", false, "testing!")
+	flag.Parse()
+
+	roman := new(Roman)
+
+	if len(flag.Args()) != 0 {
+		var arg = flag.Args()[0]
+
+		if *from {
+			fmt.Println(roman.FromRoman(arg))
+		} else if *to {
+			var val, _ = strconv.Atoi(arg)
+			fmt.Println(roman.ToRoman(val))
+		}
+	}
+}
